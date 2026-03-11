@@ -1,30 +1,29 @@
 package it.gestionesmartphoneapp.model;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "smartphone")
-public class Smartphone 
+public class Smartphone
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "nome")
-    private String nome;
+    @Column(name = "marca")
+    private String marca;
 
-    @Column(name = "dataInstallazione")
-    private LocalDate dataInstallazione;
+    @Column(name = "modello")
+    private String modello;
 
-    @Column(name = "dataUltimoAggiornamento")
-    private LocalDate dataUltimoAggiornamento;
+    @Column(name = "prezzo")
+    private Float prezzo;
 
-    @Column(name = "versione")
-    private Float versione;
+    @Column(name = "versioneOS")
+    private Float versioneOS;
 
     @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY)
     @JoinTable(
@@ -34,15 +33,13 @@ public class Smartphone
     )
     private Set<App> apps = new HashSet<App>();
 
-    public Smartphone() {
-
-    }
-
-    public Smartphone(String nome, LocalDate dataInstallazione, LocalDate dataUltimoAggiornamento, Float versione) {
-        this.nome = nome;
-        this.dataInstallazione = dataInstallazione;
-        this.dataUltimoAggiornamento = dataUltimoAggiornamento;
-        this.versione = versione;
+    public Smartphone() {}
+    
+    public Smartphone(String marca, String modello, Float prezzo, Float versioneOS) {
+        this.marca = marca;
+        this.modello = modello;
+        this.prezzo = prezzo;
+        this.versioneOS = versioneOS;
     }
 
     public Long getId() {
@@ -53,36 +50,36 @@ public class Smartphone
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getMarca() {
+        return marca;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setMarca(String marca) {
+        this.marca = marca;
     }
 
-    public LocalDate getDataInstallazione() {
-        return dataInstallazione;
+    public String getModello() {
+        return modello;
     }
 
-    public void setDataInstallazione(LocalDate dataInstallazione) {
-        this.dataInstallazione = dataInstallazione;
+    public void setModello(String modello) {
+        this.modello = modello;
     }
 
-    public LocalDate getDataUltimoAggiornamento() {
-        return dataUltimoAggiornamento;
+    public Float getPrezzo() {
+        return prezzo;
     }
 
-    public void setDataUltimoAggiornamento(LocalDate dataUltimoAggiornamento) {
-        this.dataUltimoAggiornamento = dataUltimoAggiornamento;
+    public void setPrezzo(Float prezzo) {
+        this.prezzo = prezzo;
     }
 
-    public Float getVersione() {
-        return versione;
+    public Float getVersioneOS() {
+        return versioneOS;
     }
 
-    public void setVersione(Float versione) {
-        this.versione = versione;
+    public void setVersioneOS(Float versioneOS) {
+        this.versioneOS = versioneOS;
     }
 
     public Set<App> getApps() {
@@ -103,16 +100,14 @@ public class Smartphone
         app.getSmartphones().remove(this);
     }
 
-
-
     @Override
     public String toString() {
         return "Smartphone{" +
                 "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", dataInstallazione=" + dataInstallazione +
-                ", dataUltimoAggiornamento=" + dataUltimoAggiornamento +
-                ", versione=" + versione +
+                ", marca='" + marca + '\'' +
+                ", modello='" + modello + '\'' +
+                ", prezzo=" + prezzo +
+                ", versioneOS=" + versioneOS +
                 '}';
     }
 }

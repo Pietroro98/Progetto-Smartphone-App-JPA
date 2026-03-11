@@ -26,7 +26,7 @@ public class AppDAOImpl implements AppDAO
     @Override
     public void update(App appInstance) throws Exception {
         if(appInstance == null) {
-            throw new Exception("Smartphone instance is null");
+            throw new Exception("App instance is null");
         }
         appInstance = entityManager.merge(appInstance);
     }
@@ -34,7 +34,7 @@ public class AppDAOImpl implements AppDAO
     @Override
     public void insert(App appInstance) throws Exception {
         if(appInstance == null) {
-            throw new Exception("Smartphone instance is null");
+            throw new Exception("App instance is null");
         }
         entityManager.persist(appInstance);
     }
