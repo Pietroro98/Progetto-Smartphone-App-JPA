@@ -11,7 +11,7 @@ public class MyServiceFactory {
 	private static AppService appServiceInstance = null;
 	private static SmartphoneService smartphoneServiceInstance = null;
 
-	public static AppService getBranoServiceInstance() {
+	public static AppService getAppServiceInstance() {
 		if (appServiceInstance == null)
 			appServiceInstance = new AppServiceImpl();
 
@@ -20,7 +20,7 @@ public class MyServiceFactory {
 		return appServiceInstance;
 	}
 
-	public static SmartphoneService getGenereServiceInstance() {
+	public static SmartphoneService getSmartphoneServiceInstance() {
 		if (smartphoneServiceInstance == null)
 			smartphoneServiceInstance = new SmartphoneServiceImpl();
 
