@@ -1,6 +1,7 @@
 package it.gestionesmartphoneapp.service.smartphone;
 import it.gestionesmartphoneapp.dao.EntityManagerUtil;
 import it.gestionesmartphoneapp.dao.smartphone.SmartphoneDAO;
+import it.gestionesmartphoneapp.model.App;
 import it.gestionesmartphoneapp.model.Smartphone;
 
 import javax.persistence.EntityManager;
@@ -80,6 +81,48 @@ public class SmartphoneServiceImpl implements SmartphoneService {
     }
 
     @Override
+    public void installaApp(Smartphone smartphoneInstance, App appInstance) throws Exception {
+        EntityManager entityManager = EntityManagerUtil.getEntityManager();
+        try
+        {
+            entityManager.getTransaction().begin();
+            smartphoneDAO.setEntityManager(entityManager);
+
+            smartphoneInstance = entityManager.merge(smartphoneInstance);
+            appInstance = entityManager.merge(appInstance);
+
+            smartphoneInstance.addApp(appInstance);
+
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            e.printStackTrace();
+            throw e;
+        } finally {
+            EntityManagerUtil.closeEntityManager(entityManager);
+        }
+    }
+
+    @Override
+    public void disinstallaApp(Smartphone smartphoneInstance, App appInstance) throws Exception {
+        EntityManager entityManager = EntityManagerUtil.getEntityManager();
+        try
+        {
+            entityManager.getTransaction().begin();
+            smartphoneDAO.setEntityManager(entityManager);
+            smartphoneDAO.disinstallaApp(smartphoneInstance.getId(), appInstance.getId());
+
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            e.printStackTrace();
+            throw e;
+        } finally {
+            EntityManagerUtil.closeEntityManager(entityManager);
+        }
+    }
+
+    @Override
     public void rimuovi(Long idSmartphone) throws Exception {
         EntityManager entityManager = EntityManagerUtil.getEntityManager();
         try
@@ -87,6 +130,24 @@ public class SmartphoneServiceImpl implements SmartphoneService {
             entityManager.getTransaction().begin();
             smartphoneDAO.setEntityManager(entityManager);
             smartphoneDAO.delete(idSmartphone);
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            e.printStackTrace();
+            throw e;
+        } finally {
+            EntityManagerUtil.closeEntityManager(entityManager);
+        }
+    }
+
+    @Override
+    public void rimuoviCompleto(Long idSmartphone) throws Exception {
+        EntityManager entityManager = EntityManagerUtil.getEntityManager();
+        try
+        {
+            entityManager.getTransaction().begin();
+            smartphoneDAO.setEntityManager(entityManager);
+            smartphoneDAO.rimuoviCompleto(idSmartphone);
             entityManager.getTransaction().commit();
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
